@@ -4,30 +4,18 @@ class Tree {
     }
 
     insert(value, root = this.root) {
-        // check for duplicate value. Return error if true
-        if (value === root.data) {
+        if (root === null) {
+            root = new Node(value);
             return root;
         }
 
-        // Compare value to root node
-
         if (value < root.data) {
-            if (!root.left) {
-                let node = new Node(value);
-                root.left = node;
-                return node;
-            } else {
-                return this.insert(value, root.left);
-            }
+            root.left = this.insert(value, root.left);
         } else if (value > root.data) {
-            if (!root.right) {
-                let node = new Node(value);
-                root.right = node;
-                return node;
-            } else {
-                return this.insert(value, root.right);
-            }
+            root.right = this.insert(value, root.right);
         }
+
+        return root;
     }
 
     delete(value) {
@@ -35,34 +23,39 @@ class Tree {
     }
 
     find(value, root = this.root) {
-        if (root === null) {
+        // Return root if found or non-existent
+        if (root === null || root.data === value) {
             return root;
         }
 
+        // Traverse left and right subtrees
         if (value < root.data) {
             root = this.find(value, root.left);
         } else if (value > root.data) {
             root = this.find(value, root.right);
         }
-        return root;
     }
 
     levelOrder(callback = null) {
         let queue = [this.root];
         let result = [];
 
-        while (queue.length > 0) {
+        while (queue.length) {
+            // Remove first node in queue, insert it's value in result array
             let node = queue.shift();
             result.push(node.data);
 
+            // Invoke callback
+            if (callback) {
+                callback(node);
+            }
+            // Queue up left child
             if (node.left) {
                 queue.push(node.left);
             }
+            // Queue up right child
             if (node.right) {
                 queue.push(node.right);
-            }
-            if (callback !== null) {
-                callback(node);
             }
         }
 
@@ -241,4 +234,3 @@ const arr = [1, 2, 3, 4, 5, 6, 7];
 let rootNode = buildTree(arr);
 let tree = new Tree(rootNode);
 prettyPrint(rootNode);
-console.log(tree.preorder());
