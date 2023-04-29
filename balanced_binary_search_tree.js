@@ -69,60 +69,64 @@ class Tree {
         return result;
     }
 
-    preorder(callback = null, root = this.root) {
-        if (!root) {
-            return [];
-        }
+    preorder(callback = null, arr = [], root = this.root) {
+        if (!root) return;
 
-        let result = [root.data];
+        // Invoke callback
         if (callback) {
             callback(root);
         }
-        if (root.left) {
-            result.push(...this.preorder(callback, root.left));
-        }
-        if (root.right) {
-            result.push(...this.preorder(callback, root.right));
-        }
-        return result;
+
+        // Visit root
+        arr.push(root.data);
+
+        // Visit reft Subtree
+        if (root.left) this.preorder(callback, arr, root.left);
+
+        // Visit right subtree
+        if (root.right) this.preorder(callback, arr, root.right);
+
+        return arr;
     }
 
-    inorder(callback = null, root = this.root) {
-        if (!root) {
-            return [];
-        }
+    inorder(callback = null, arr = [], root = this.root) {
+        if (!root) return;
 
-        let result = [];
-        if (root.left) {
-            result.push(...this.inorder(callback, root.left));
-        }
-        result.push(root.data);
+        // Invoke callback
         if (callback) {
             callback(root);
         }
-        if (root.right) {
-            result.push(...this.inorder(callback, root.right));
-        }
-        return result;
+
+        // Traverse reft Subtree
+        if (root.left) this.inorder(callback, arr, root.left);
+
+        // Visit root
+        arr.push(root.data);
+
+        // Traverse right subtree
+        if (root.right) this.inorder(callback, arr, root.right);
+
+        return arr;
     }
 
-    postorder(callback = null, root = this.root) {
-        if (!root) {
-            return [];
-        }
+    postorder(callback = null, arr = [], root = this.root) {
+        if (!root) return;
 
-        let result = [];
-        if (root.left) {
-            result.push(...this.postorder(callback, root.left));
-        }
-        if (root.right) {
-            result.push(...this.postorder(callback, root.right));
-        }
-        result.push(root.data);
+        // Invoke callback
         if (callback) {
             callback(root);
         }
-        return result;
+
+        // Traverse reft Subtree
+        if (root.left) this.postorder(callback, arr, root.left);
+
+        // Traverse right subtree
+        if (root.right) this.postorder(callback, arr, root.right);
+
+        // Visit root
+        arr.push(root.data);
+
+        return arr;
     }
 
     height(node) {
@@ -150,6 +154,11 @@ class Tree {
         const rHeight = this.height(root.right);
         const diff = Math.abs(lHeight - rHeight);
         return diff < 2 ? 'true' : 'false';
+    }
+
+    rebalance(root = this.root) {
+        let arr = this.inorder((callback = null), root);
+        return (this.root = buildTree(arr));
     }
 
     _deleteNode(value, root) {
@@ -228,8 +237,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 // Driver Scripts
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 100, 150, 125, 160, 5184];
+const arr = [1, 2, 3, 4, 5, 6, 7];
 let rootNode = buildTree(arr);
 let tree = new Tree(rootNode);
 prettyPrint(rootNode);
-console.log(`tree is balanced: ${tree.isBalanced()}`);
+console.log(tree.preorder());
