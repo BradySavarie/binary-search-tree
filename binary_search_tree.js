@@ -1,6 +1,22 @@
+const Node = require('./node');
+
 class Tree {
     constructor(data) {
-        this.root = data;
+        let sortedData = [...new Set(data)].sort((a, b) => a - b);
+        this.root = this.buildTree(sortedData);
+    }
+
+    buildTree(arr, start = 0, end = arr.length - 1) {
+        if (start > end) {
+            return null;
+        }
+
+        const mid = parseInt((start + end) / 2);
+        const node = new Node(arr[mid]);
+
+        node.left = this.buildTree(arr, start, mid - 1);
+        node.right = this.buildTree(arr, mid + 1, end);
+        return node;
     }
 
     insert(value, root = this.root) {
@@ -19,7 +35,7 @@ class Tree {
     }
 
     delete(value) {
-        this.root = this._deleteNode(value, this.root);
+        this.root = this.#deleteNode(value, this.root);
     }
 
     find(value, root = this.root) {
@@ -149,12 +165,33 @@ class Tree {
         return diff < 2 ? 'true' : 'false';
     }
 
-    rebalance(root = this.root) {
-        let arr = this.inorder((callback = null), root);
-        return (this.root = buildTree(arr));
+    rebalance() {
+        let arr = this.inorder();
+        return (this.root = this.buildTree(arr));
     }
 
-    _deleteNode(value, root) {
+    prettyPrint(node = this.root, prefix = '', isLeft = true) {
+        if (node === null) {
+            return;
+        }
+        if (node.right !== null) {
+            this.prettyPrint(
+                node.right,
+                `${prefix}${isLeft ? '│   ' : '    '}`,
+                false
+            );
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+        if (node.left !== null) {
+            this.prettyPrint(
+                node.left,
+                `${prefix}${isLeft ? '    ' : '│   '}`,
+                true
+            );
+        }
+    }
+
+    #deleteNode(value, root) {
         // base case
         if (root === null) {
             return root;
@@ -162,9 +199,9 @@ class Tree {
 
         // recurse down tree
         if (value < root.data) {
-            root.left = this._deleteNode(value, root.left);
+            root.left = this.#deleteNode(value, root.left);
         } else if (value > root.data) {
-            root.right = this._deleteNode(value, root.right);
+            root.right = this.#deleteNode(value, root.right);
         } else {
             // Value found -> option 1: leaf node
             if (!root.left && !root.right) {
@@ -177,14 +214,14 @@ class Tree {
                 return root.left;
             }
             // option 3: node has two children
-            let min = this._findMinNode(root.right);
+            let min = this.#findMinNode(root.right);
             root.data = min.data;
-            root.right = this._deleteNode(min.data, root.right);
+            root.right = this.#deleteNode(min.data, root.right);
         }
         return root;
     }
 
-    _findMinNode(root) {
+    #findMinNode(root) {
         while (root.left != null) {
             root = root.left;
         }
@@ -192,45 +229,4 @@ class Tree {
     }
 }
 
-class Node {
-    constructor(data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-function buildTree(arr, start = 0, end = arr.length - 1) {
-    // Must pass in sorted array without duplicate values
-
-    if (start > end) {
-        return null;
-    }
-
-    const mid = parseInt((start + end) / 2);
-    const node = new Node(arr[mid]);
-
-    node.left = buildTree(arr, start, mid - 1);
-    node.right = buildTree(arr, mid + 1, end);
-    return node;
-}
-
-const prettyPrint = (node, prefix = '', isLeft = true) => {
-    if (node === null) {
-        return;
-    }
-    if (node.right !== null) {
-        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-    }
-    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-    if (node.left !== null) {
-        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-    }
-};
-
-// Driver Scripts
-
-const arr = [1, 2, 3, 4, 5, 6, 7];
-let rootNode = buildTree(arr);
-let tree = new Tree(rootNode);
-prettyPrint(rootNode);
+module.exports = Tree;
