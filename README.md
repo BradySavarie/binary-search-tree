@@ -44,5 +44,6 @@ For this project i've decided to dive into the world of data structures and lear
 
 <strong>prettyPrint:</strong> This method prints the binary search tree in a visually appealing format. It takes an optional parameter node indicating the current node to start printing from, prefix for indentation, and a boolean flag isLeft indicating whether the node is a left child.
 
+<hr>
 
 <em>A driver script has been included for demonstration purposes</em>
