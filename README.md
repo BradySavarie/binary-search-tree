@@ -16,4 +16,4 @@ For this project i've decided to dive into the world of data structures and lear
   
   <hr>
   
-  A driver script is included for testing.
+  A driver script has been included to demonstrate how the program functions.
