@@ -43,8 +43,6 @@ This method inserts a new value into the binary search tree. It takes the value 
 
 <h3>rebalance:</h3> This method rebuilds the binary search tree to make it balanced. It performs an in-order traversal to obtain the node values, constructs a new balanced tree using the buildTree method, and updates the root of the tree.
 
-<h3>prettyPrint:</h3> This method prints the binary search tree in a visually appealing format. It takes an optional parameter node indicating the current node to start printing from, prefix for indentation, and a boolean flag isLeft indicating whether the node is a left child. This is a third-party helper function and was not written by me.
-
 <hr>
 
 <em>A driver script has been included for demonstration purposes</em>
