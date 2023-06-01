@@ -20,7 +20,7 @@ For this project i've decided to dive into the world of data structures and lear
 
 <em>To recursively construct a binary search tree (BST), instantiate a Tree object and pass it in an array of numbers. The array will be sorted and duplicates will be removed before it is processed. The root node of the tree will be returned.</em>
 
-<h3>insert</h3>
+<h3>insert:</h3>
 This method inserts a new value into the binary search tree. It takes the value to be inserted and an optional parameter root indicating the current root of the tree. It returns the modified root of the tree after insertion.
 
 <h3>delete:</h3> This method deletes a node with the specified value from the binary search tree. It takes the value to be deleted and updates the root of the tree.
@@ -43,7 +43,7 @@ This method inserts a new value into the binary search tree. It takes the value 
 
 <h3>rebalance:</h3> This method rebuilds the binary search tree to make it balanced. It performs an in-order traversal to obtain the node values, constructs a new balanced tree using the buildTree method, and updates the root of the tree.
 
-<h3>prettyPrint:</h3> This method prints the binary search tree in a visually appealing format. It takes an optional parameter node indicating the current node to start printing from, prefix for indentation, and a boolean flag isLeft indicating whether the node is a left child.
+<h3>prettyPrint:</h3> This method prints the binary search tree in a visually appealing format. It takes an optional parameter node indicating the current node to start printing from, prefix for indentation, and a boolean flag isLeft indicating whether the node is a left child. This is a third-party helper function and was not written by me.
 
 <hr>
 
