@@ -1,6 +1,6 @@
 <h1>🌲 Binary Search Tree</h1>
 
-For this project I decided to dive into the world of data structures and learn how to build a binary search tree. I've created it to be a command-line only program that contains the following 11 methods:
+For this project i've decided to dive into the world of data structures and learn how to build a binary search tree. This program has been designed to operate through a command-line interface, and it contains the following 11 methods:
 
   - Insert
   - Delete
@@ -13,5 +13,7 @@ For this project I decided to dive into the world of data structures and learn h
   - Depth
   - isBalanced
   - Rebalance
+  
+  <hr>
   
   A driver script is included for testing.
