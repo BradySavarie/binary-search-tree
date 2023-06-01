@@ -16,7 +16,7 @@ For this project i've decided to dive into the world of data structures and lear
   
  <hr>
 
-<h2>Quick Guide</h2>
+<h2>Reference & Usage Guide</h2>
 
 <em>To recursively construct a binary search tree (BST), instantiate a Tree object and pass it in an array of numbers. The array will be sorted and duplicates will be removed before it is processed. The root node of the tree will be returned.</em>
 
